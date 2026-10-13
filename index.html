@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0f14">
+  <meta name="description" content="Game developer portfolio focused on Unity, C#, gameplay systems, and game development.">
+  <title>Game Developer Portfolio | Unity · C#</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0f14;
+      --panel: #101720;
+      --panel-2: #0d131b;
+      --line: #263544;
+      --text: #e5edf5;
+      --muted: #9baabd;
+      --green: #76f7b2;
+      --cyan: #7bdff2;
+      --amber: #ffd166;
+      --red: #ff7b8b;
+      --radius: 14px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(123,223,242,.08), transparent 35rem),
+        radial-gradient(ellipse at 90% 25%, rgba(118,247,178,.055), transparent 32rem),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.65;
+    }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { color: var(--green); }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+    code, .mono, .eyebrow, .tag, .status, .prompt, .section-index, .terminal-title, .meta-label {
+      font-family: var(--mono);
+    }
+    code { color: var(--green); }
+    .wrap { width: min(1080px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      background: rgba(11,15,20,.82);
+      position: sticky; top: 0; z-index: 5;
+      backdrop-filter: blur(14px);
+    }
+    .nav {
+      min-height: 66px; display: flex; align-items: center;
+      justify-content: space-between; gap: 24px;
+    }
+    .brand { color: var(--text); font: 700 .95rem var(--mono); letter-spacing: -.03em; }
+    .brand .prompt { color: var(--green); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 22px; font: .82rem var(--mono); }
+    .nav-links a { color: var(--muted); }
+    .nav-links a:hover { color: var(--green); }
+    .hero { padding: 92px 0 72px; }
+    .eyebrow { color: var(--green); font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; }
+    h1 {
+      max-width: 850px; margin: 18px 0 18px;
+      font-size: clamp(2.5rem, 7vw, 5.4rem);
+      line-height: 1.04; letter-spacing: -.065em;
+    }
+    h1 .accent { color: var(--green); }
+    .hero-copy { max-width: 700px; color: var(--muted); font-size: 1.08rem; }
+    .hero-copy strong { color: var(--text); font-weight: 600; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .button {
+      display: inline-flex; align-items: center; gap: 9px;
+      border: 1px solid var(--line); border-radius: 8px; padding: 11px 15px;
+      font: 600 .86rem var(--mono); color: var(--text); background: var(--panel);
+    }
+    .button.primary { background: var(--green); border-color: var(--green); color: #07110c; }
+    .button:hover { transform: translateY(-1px); }
+    .terminal {
+      margin-top: 44px; border: 1px solid var(--line); border-radius: var(--radius);
+      background: rgba(13,19,27,.88); overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.18);
+    }
+    .terminal-bar {
+      display: flex; align-items: center; gap: 7px; padding: 12px 16px;
+      background: #121b25; border-bottom: 1px solid var(--line);
+    }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--red); }
+    .dot:nth-child(2) { background: var(--amber); }
+    .dot:nth-child(3) { background: var(--green); }
+    .terminal-title { margin-left: 7px; color: var(--muted); font-size: .75rem; }
+    .terminal-body { padding: 18px 20px; font: .87rem/1.9 var(--mono); overflow-x: auto; }
+    .terminal-body .key { color: var(--cyan); }
+    .terminal-body .value { color: var(--green); }
+    .terminal-body .comment { color: #718196; }
+    section { padding: 58px 0; scroll-margin-top: 82px; }
+    .section-heading { display: flex; align-items: baseline; gap: 13px; margin-bottom: 24px; }
+    .section-index { color: var(--green); font-size: .85rem; }
+    h2 { margin: 0; font-size: clamp(1.65rem, 4vw, 2.25rem); letter-spacing: -.04em; }
+    .section-intro { max-width: 700px; color: var(--muted); margin: -10px 0 28px; }
+    .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+    .project-card {
+      min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius);
+      background: linear-gradient(160deg, rgba(16,23,32,.96), rgba(13,19,27,.96));
+    }
+    .project-card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.03fr) minmax(0, 1fr); }
+    .project-visual {
+      min-height: 220px; position: relative; overflow: hidden; background: #0c141b;
+      border-bottom: 1px solid var(--line);
+    }
+    .featured .project-visual { min-height: 100%; border-bottom: 0; border-right: 1px solid var(--line); }
+    .project-visual img { width: 100%; height: 100%; min-height: 220px; object-fit: cover; display: block; }
+    .featured .project-visual img { min-height: 100%; position: absolute; inset: 0; }
+    .image-fallback {
+      position: absolute; inset: 0; display: grid; place-items: center; padding: 22px;
+      background:
+        linear-gradient(rgba(123,223,242,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(123,223,242,.045) 1px, transparent 1px),
+        radial-gradient(ellipse at center, rgba(118,247,178,.08), transparent 62%),
+        #0c141b;
+      background-size: 24px 24px, 24px 24px, auto, auto;
+      text-align: center;
+    }
+    .image-fallback .frame {
+      border: 1px dashed #3a5262; border-radius: 10px; padding: 18px; max-width: 300px;
+      color: var(--muted); font: .78rem/1.7 var(--mono);
+    }
+    .image-fallback strong { display: block; color: var(--cyan); margin-bottom: 5px; font-weight: 600; }
+    .project-content { padding: 22px; }
+    .featured .project-content { padding: clamp(22px, 4vw, 34px); }
+    .project-topline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+    .status { display: inline-flex; align-items: center; gap: 7px; font-size: .7rem; text-transform: uppercase; letter-spacing: .045em; }
+    .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+    .status.personal::before { background: var(--cyan); }
+    .status.progress::before { background: var(--amber); }
+    .meta-label { color: var(--muted); font-size: .72rem; }
+    h3 { font-size: 1.4rem; letter-spacing: -.035em; line-height: 1.25; margin: 13px 0 9px; }
+    .project-content p { color: var(--muted); margin: 0 0 16px; font-size: .94rem; }
+    .project-content p strong { color: var(--text); font-weight: 600; }
+    .project-content h4 { margin: 19px 0 8px; color: var(--text); font: 600 .8rem var(--mono); }
+    .contribution-list { padding-left: 18px; margin: 0; color: var(--muted); font-size: .88rem; }
+    .contribution-list li { margin: 5px 0; padding-left: 2px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 19px; }
+    .tag { border: 1px solid #2a3b4a; border-radius: 5px; padding: 4px 7px; color: #b9c8d7; font-size: .7rem; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .info-panel { border: 1px solid var(--line); border-radius: var(--radius); padding: 23px; background: var(--panel-2); }
+    .info-panel h3 { font: 600 .95rem var(--mono); margin: 0 0 13px; color: var(--cyan); }
+    .info-panel p { color: var(--muted); margin: 0; font-size: .94rem; }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-list span { padding: 7px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); font: .78rem var(--mono); }
+    .contact-panel {
+      padding: clamp(24px, 5vw, 42px); border: 1px solid #315348; border-radius: var(--radius);
+      background: linear-gradient(120deg, rgba(118,247,178,.075), rgba(123,223,242,.035));
+    }
+    .contact-panel p { color: var(--muted); max-width: 640px; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+    footer { border-top: 1px solid var(--line); padding: 23px 0 35px; color: #748397; font: .75rem var(--mono); }
+    footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .small-note { color: #7f8fa2; font-size: .8rem; }
+    @media (max-width: 760px) {
+      .nav { align-items: flex-start; flex-direction: column; justify-content: center; padding: 13px 0; gap: 9px; }
+      .nav-links { gap: 14px; }
+      .hero { padding: 66px 0 45px; }
+      .project-grid, .about-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: auto; display: flex; flex-direction: column; }
+      .featured .project-visual { min-height: 220px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .featured .project-visual img { min-height: 220px; }
+      section { padding: 43px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    QUICK EDIT GUIDE
+    1. Replace [YOUR NAME] below with your name.
+    2. Add your real GitHub, LinkedIn, and email links in the Contact section.
+    3. Upload project screenshots to an "assets" folder in this repository.
+       Suggested filenames:
+         assets/the-mare-show.jpg
+         assets/eyes-up.jpg
+         assets/damnation84.jpg
+       Then update each img src below to match the uploaded filename.
+    4. Keep professional project descriptions generic unless you have permission to share more.
+    5. Do not publish confidential screenshots, source code, or internal production details.
+  -->
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Back to top"><span class="prompt">~/</span> [YOUR NAME]</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#projects">projects</a>
+        <a href="#about">about</a>
+        <a href="#contact">contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">// Unity Developer · C# · Gameplay Systems</div>
+        <h1>Building games,<br><span class="accent">one system at a time.</span></h1>
+        <p class="hero-copy">
+          I'm a game developer focused on <strong>Unity, C#, gameplay implementation, and player-facing systems</strong>.
+          This portfolio highlights selected professional work and an independent project, with an emphasis on my contributions.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#projects">Explore projects <span aria-hidden="true">↘</span></a>
+          <!-- Replace # with your real GitHub profile URL. Remove this link if you don't want to show it yet. -->
+          <a class="button" href="#contact">Get in touch <span aria-hidden="true">→</span></a>
+        </div>
+
+        <div class="terminal" aria-label="Developer profile summary">
+          <div class="terminal-bar">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="terminal-title">profile.config</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="comment"># A quick look at what I do</span></div>
+            <div><span class="key">focus</span>    = <span class="value">"Gameplay programming"</span></div>
+            <div><span class="key">engine</span>   = <span class="value">"Unity"</span></div>
+            <div><span class="key">language</span> = <span class="value">"C#"</span></div>
+            <div><span class="key">interests</span> = [<span class="value">"Game systems"</span>, <span class="value">"UI"</span>, <span class="value">"Game design"</span>]</div>
+            <div><span class="key">approach</span> = <span class="value">"Build, test, iterate"</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-heading"><span class="section-index">01 /</span><h2>Selected projects</h2></div>
+        <p class="section-intro">A mix of shipped professional work and an independent project. Each entry focuses on scope, contribution, and implementation rather than confidential production details.</p>
+
+        <div class="project-grid">
+          <article class="project-card featured">
+            <div class="project-visual">
+              <img src="assets/the-mare-show.jpg" alt="Screenshot from The Mare Show" onerror="this.style.display='none'">
+              <div class="image-fallback">
+                <div class="frame"><strong>[ PROJECT SCREENSHOT ]</strong>Upload a permitted screenshot as<br><code>assets/the-mare-show.jpg</code></div>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-topline">
+                <span class="status">Released · Professional project</span>
+                <span class="meta-label">01 / shipped</span>
+              </div>
+              <h3>The Mare Show</h3>
+              <p>A commercially released game developed as part of a professional team. My contribution focused on player-facing systems and tools that support the game's presentation and content flow.</p>
+              <h4>MY CONTRIBUTIONS</h4>
+              <ul class="contribution-list">
+                <li>Implemented and maintained HUD functionality.</li>
+                <li>Worked on level management systems.</li>
+                <li>Developed a translation/localization system.</li>
+              </ul>
+              <div class="tags"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">UI / HUD</span><span class="tag">Localization</span><span class="tag">Level Management</span></div>
+              <p class="small-note" style="margin-top:16px">Professional project details are intentionally limited to my general responsibilities.</p>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-visual">
+              <img src="assets/eyes-up.jpg" alt="Screenshot from the independent game Eyes Up!" onerror="this.style.display='none'">
+              <div class="image-fallback">
+                <div class="frame"><strong>[ GAMEPLAY SCREENSHOT ]</strong>Upload a screenshot as<br><code>assets/eyes-up.jpg</code></div>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-topline">
+                <span class="status personal">Independent project</span>
+                <span class="meta-label">02 / end-to-end</span>
+              </div>
+              <h3>Eyes Up!</h3>
+              <p>An independent rocket-flight game built from start to finish. The gameplay follows a launch sequence through separation, orbit, parachute deployment, and a safe landing.</p>
+              <h4>MY CONTRIBUTIONS</h4>
+              <ul class="contribution-list">
+                <li>Gameplay programming and implementation.</li>
+                <li>Level design and overall game flow.</li>
+                <li>Music and sound effects.</li>
+              </ul>
+              <p class="small-note">The rocket and launchpad models were created by other contributors.</p>
+              <div class="tags"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">Gameplay</span><span class="tag">Level Design</span><span class="tag">Audio</span></div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-visual">
+              <img src="assets/damnation84.jpg" alt="Screenshot from Damnation84" onerror="this.style.display='none'">
+              <div class="image-fallback">
+                <div class="frame"><strong>[ APPROVED PROJECT IMAGE ]</strong>Upload a permitted screenshot as<br><code>assets/damnation84.jpg</code></div>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-topline">
+                <span class="status progress">In development · Professional project</span>
+                <span class="meta-label">03 / ongoing</span>
+              </div>
+              <h3>Damnation84</h3>
+              <p>A professional game currently in development. My work includes player-facing features and content-support systems used by the project.</p>
+              <h4>MY CONTRIBUTIONS</h4>
+              <ul class="contribution-list">
+                <li>Developed and maintained HUD functionality.</li>
+                <li>Worked on translation/localization management.</li>
+                <li>Created simple character vocal sound effects.</li>
+              </ul>
+              <div class="tags"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">UI / HUD</span><span class="tag">Localization</span><span class="tag">Audio</span></div>
+              <p class="small-note" style="margin-top:16px">Details are intentionally generalized to respect professional confidentiality.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="section-heading"><span class="section-index">02 /</span><h2>About & toolkit</h2></div>
+        <div class="about-grid">
+          <div class="info-panel">
+            <h3><span class="prompt">$</span> cat about.txt</h3>
+            <p>I work on game features that connect systems with the player's experience. My portfolio combines professional production experience with an independent project that demonstrates ownership across gameplay, level design, and audio. I'm also interested in the design decisions behind how a game feels and plays.</p>
+          </div>
+          <div class="info-panel">
+            <h3><span class="prompt">$</span> list --skills</h3>
+            <div class="skill-list">
+              <span>Unity</span><span>C#</span><span>Gameplay Programming</span><span>UI / HUD</span>
+              <span>Localization Systems</span><span>Level Management</span><span>Level Design</span><span>Audio Implementation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="section-heading"><span class="section-index">03 /</span><h2>Contact</h2></div>
+        <div class="contact-panel">
+          <div class="eyebrow">// Open to professional conversations</div>
+          <h3 style="font-size:1.6rem; margin:12px 0 8px">Let's build something meaningful.</h3>
+          <p>For opportunities, collaboration, or questions about my work, reach out through the professional links below. Replace the placeholders with your real contact details before publishing.</p>
+          <div class="contact-links">
+            <!-- IMPORTANT: Replace each # with your real URL, or remove the link until it is ready. -->
+            <a class="button" href="#" aria-label="Add your LinkedIn URL">LinkedIn ↗</a>
+            <a class="button" href="#" aria-label="Add your GitHub URL">GitHub ↗</a>
+            <a class="button" href="#" aria-label="Add your email address">Email ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span id="year">2026</span> [YOUR NAME]</span>
+      <span>Built with HTML & CSS · Hosted on GitHub Pages</span>
+    </div>
+  </footer>
+  <script>
+    // Keeps the copyright year current without requiring manual edits.
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Show the screenshot placeholder when an image file has not been uploaded yet.
+    document.querySelectorAll(".project-visual").forEach(function (visual) {
+      var img = visual.querySelector("img");
+      var fallback = visual.querySelector(".image-fallback");
+      function syncFallback() {
+        fallback.style.display = (img.complete && img.naturalWidth > 0) ? "none" : "grid";
+      }
+      img.addEventListener("load", syncFallback);
+      img.addEventListener("error", syncFallback);
+      syncFallback();
+    });
+  </script>
+</body>
+</html>
