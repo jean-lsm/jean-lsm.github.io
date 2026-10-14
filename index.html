@@ -58,6 +58,12 @@
     .nav-links { display: flex; flex-wrap: wrap; gap: 22px; font: .82rem var(--mono); }
     .nav-links a { color: var(--muted); }
     .nav-links a:hover { color: var(--green); }
+    .language-toggle { display:inline-flex; align-items:center; gap:5px; border:1px solid var(--line); border-radius:7px; padding:6px 9px; background:var(--panel); color:var(--muted); cursor:pointer; font:.78rem var(--mono); }
+    .language-toggle [aria-pressed="true"] { color:var(--green); font-weight:700; }
+    .language-toggle .separator { color:var(--line); }
+    .nav-right { display:flex; align-items:center; gap:22px; }
+    .nav { flex-wrap:wrap; }
+    @media (max-width:760px) { .nav-right { width:100%; justify-content:space-between; gap:12px; } }
     .hero { padding: 92px 0 72px; }
     .eyebrow { color: var(--green); font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; }
     h1 {
@@ -189,27 +195,32 @@
   <header class="topbar">
     <div class="wrap nav">
       <a class="brand" href="#top" aria-label="Back to top"><span class="prompt">~/</span> [YOUR NAME]</a>
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="#projects">projects</a>
-        <a href="#about">about</a>
-        <a href="#contact">contact</a>
-      </nav>
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#projects" data-i18n="navProjects">projects</a>
+          <a href="#about" data-i18n="navAbout">about</a>
+          <a href="#contact" data-i18n="navContact">contact</a>
+        </nav>
+        <button class="language-toggle" id="languageToggle" type="button" aria-label="Switch to Portuguese" title="Switch language">
+          <span id="langEN" aria-pressed="true">EN</span><span class="separator" aria-hidden="true">/</span><span id="langPT" aria-pressed="false">PT-BR</span>
+        </button>
+      </div>
     </div>
   </header>
 
   <main id="top">
     <section class="hero">
       <div class="wrap">
-        <div class="eyebrow">// Unity Developer · C# · Gameplay Systems</div>
-        <h1>Building games,<br><span class="accent">one system at a time.</span></h1>
-        <p class="hero-copy">
+        <div class="eyebrow" data-i18n="heroEyebrow">// Unity Developer · C# · Gameplay Systems</div>
+        <h1 data-i18n="heroTitle">Building games,<br><span class="accent">one system at a time.</span></h1>
+        <p class="hero-copy" data-i18n="heroCopy">
           I'm a game developer focused on <strong>Unity, C#, gameplay implementation, and player-facing systems</strong>.
           This portfolio highlights selected professional work and an independent project, with an emphasis on my contributions.
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="#projects">Explore projects <span aria-hidden="true">↘</span></a>
+          <a class="button primary" href="#projects" data-i18n="heroProjects">Explore projects <span aria-hidden="true">↘</span></a>
           <!-- Replace # with your real GitHub profile URL. Remove this link if you don't want to show it yet. -->
-          <a class="button" href="#contact">Get in touch <span aria-hidden="true">→</span></a>
+          <a class="button" href="#contact" data-i18n="heroContact">Get in touch <span aria-hidden="true">→</span></a>
         </div>
 
         <div class="terminal" aria-label="Developer profile summary">
@@ -231,8 +242,8 @@
 
     <section id="projects">
       <div class="wrap">
-        <div class="section-heading"><span class="section-index">01 /</span><h2>Selected projects</h2></div>
-        <p class="section-intro">A mix of shipped professional work and an independent project. Each entry focuses on scope, contribution, and implementation rather than confidential production details.</p>
+        <div class="section-heading"><span class="section-index">01 /</span><h2 data-i18n="projectsTitle">Selected projects</h2></div>
+        <p class="section-intro" data-i18n="projectsIntro">A mix of shipped professional work and an independent project. Each entry focuses on scope, contribution, and implementation rather than confidential production details.</p>
 
         <div class="project-grid">
           <article class="project-card featured">
@@ -244,19 +255,19 @@
             </div>
             <div class="project-content">
               <div class="project-topline">
-                <span class="status">Released · Professional project</span>
+                <span class="status" data-i18n="mareStatus">Released · Professional project</span>
                 <span class="meta-label">01 / shipped</span>
               </div>
               <h3>The Mare Show</h3>
-              <p>A commercially released game developed as part of a professional team. My contribution focused on player-facing systems and tools that support the game's presentation and content flow.</p>
-              <h4>MY CONTRIBUTIONS</h4>
+              <p data-i18n="mareDescription">A commercially released game developed as part of a professional team. My contribution focused on player-facing systems and tools that support the game's presentation and content flow.</p>
+              <h4 data-i18n="contributionsHeading">MY CONTRIBUTIONS</h4>
               <ul class="contribution-list">
-                <li>Implemented and maintained HUD functionality.</li>
-                <li>Worked on level management systems.</li>
-                <li>Developed a translation/localization system.</li>
+                <li data-i18n="mareContribution1">Implemented and maintained HUD functionality.</li>
+                <li data-i18n="mareContribution2">Worked on level management systems.</li>
+                <li data-i18n="mareContribution3">Developed a translation/localization system.</li>
               </ul>
               <div class="tags"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">UI / HUD</span><span class="tag">Localization</span><span class="tag">Level Management</span></div>
-              <p class="small-note" style="margin-top:16px">Professional project details are intentionally limited to my general responsibilities.</p>
+              <p class="small-note" style="margin-top:16px" data-i18n="mareNote">Professional project details are intentionally limited to my general responsibilities.</p>
             </div>
           </article>
 
@@ -269,18 +280,18 @@
             </div>
             <div class="project-content">
               <div class="project-topline">
-                <span class="status personal">Independent project</span>
+                <span class="status personal" data-i18n="eyesStatus">Independent project</span>
                 <span class="meta-label">02 / end-to-end</span>
               </div>
               <h3>Eyes Up!</h3>
-              <p>An independent rocket-flight game built from start to finish. The gameplay follows a launch sequence through separation, orbit, parachute deployment, and a safe landing.</p>
+              <p data-i18n="eyesDescription">An independent rocket-flight game built from start to finish. The gameplay follows a launch sequence through separation, orbit, parachute deployment, and a safe landing.</p>
               <h4>MY CONTRIBUTIONS</h4>
               <ul class="contribution-list">
-                <li>Gameplay programming and implementation.</li>
-                <li>Level design and overall game flow.</li>
-                <li>Music and sound effects.</li>
+                <li data-i18n="eyesContribution1">Gameplay programming and implementation.</li>
+                <li data-i18n="eyesContribution2">Level design and overall game flow.</li>
+                <li data-i18n="eyesContribution3">Music and sound effects.</li>
               </ul>
-              <p class="small-note">The rocket and launchpad models were created by other contributors.</p>
+              <p class="small-note" data-i18n="eyesNote">The rocket and launchpad models were created by other contributors.</p>
               <div class="tags"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">Gameplay</span><span class="tag">Level Design</span><span class="tag">Audio</span></div>
             </div>
           </article>
@@ -294,19 +305,19 @@
             </div>
             <div class="project-content">
               <div class="project-topline">
-                <span class="status progress">In development · Professional project</span>
+                <span class="status progress" data-i18n="damnationStatus">In development · Professional project</span>
                 <span class="meta-label">03 / ongoing</span>
               </div>
               <h3>Damnation84</h3>
-              <p>A professional game currently in development. My work includes player-facing features and content-support systems used by the project.</p>
+              <p data-i18n="damnationDescription">A professional game currently in development. My work includes player-facing features and content-support systems used by the project.</p>
               <h4>MY CONTRIBUTIONS</h4>
               <ul class="contribution-list">
-                <li>Developed and maintained HUD functionality.</li>
-                <li>Worked on translation/localization management.</li>
-                <li>Created simple character vocal sound effects.</li>
+                <li data-i18n="damnationContribution1">Developed and maintained HUD functionality.</li>
+                <li data-i18n="damnationContribution2">Worked on translation/localization management.</li>
+                <li data-i18n="damnationContribution3">Created simple character vocal sound effects.</li>
               </ul>
               <div class="tags"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">UI / HUD</span><span class="tag">Localization</span><span class="tag">Audio</span></div>
-              <p class="small-note" style="margin-top:16px">Details are intentionally generalized to respect professional confidentiality.</p>
+              <p class="small-note" style="margin-top:16px" data-i18n="damnationNote">Details are intentionally generalized to respect professional confidentiality.</p>
             </div>
           </article>
         </div>
@@ -315,11 +326,11 @@
 
     <section id="about">
       <div class="wrap">
-        <div class="section-heading"><span class="section-index">02 /</span><h2>About & toolkit</h2></div>
+        <div class="section-heading"><span class="section-index">02 /</span><h2 data-i18n="aboutTitle">About & toolkit</h2></div>
         <div class="about-grid">
           <div class="info-panel">
             <h3><span class="prompt">$</span> cat about.txt</h3>
-            <p>I work on game features that connect systems with the player's experience. My portfolio combines professional production experience with an independent project that demonstrates ownership across gameplay, level design, and audio. I'm also interested in the design decisions behind how a game feels and plays.</p>
+            <p data-i18n="aboutCopy">I work on game features that connect systems with the player's experience. My portfolio combines professional production experience with an independent project that demonstrates ownership across gameplay, level design, and audio. I'm also interested in the design decisions behind how a game feels and plays.</p>
           </div>
           <div class="info-panel">
             <h3><span class="prompt">$</span> list --skills</h3>
@@ -334,11 +345,11 @@
 
     <section id="contact">
       <div class="wrap">
-        <div class="section-heading"><span class="section-index">03 /</span><h2>Contact</h2></div>
+        <div class="section-heading"><span class="section-index">03 /</span><h2 data-i18n="contactTitle">Contact</h2></div>
         <div class="contact-panel">
-          <div class="eyebrow">// Open to professional conversations</div>
-          <h3 style="font-size:1.6rem; margin:12px 0 8px">Let's build something meaningful.</h3>
-          <p>For opportunities, collaboration, or questions about my work, reach out through the professional links below. Replace the placeholders with your real contact details before publishing.</p>
+          <div class="eyebrow" data-i18n="contactEyebrow">// Open to professional conversations</div>
+          <h3 style="font-size:1.6rem; margin:12px 0 8px" data-i18n="contactHeadline">Let's build something meaningful.</h3>
+          <p data-i18n="contactCopy">For opportunities, collaboration, or questions about my work, reach out through the professional links below. Replace the placeholders with your real contact details before publishing.</p>
           <div class="contact-links">
             <!-- IMPORTANT: Replace each # with your real URL, or remove the link until it is ready. -->
             <a class="button" href="#" aria-label="Add your LinkedIn URL">LinkedIn ↗</a>
@@ -353,12 +364,71 @@
   <footer>
     <div class="wrap">
       <span>© <span id="year">2026</span> [YOUR NAME]</span>
-      <span>Built with HTML & CSS · Hosted on GitHub Pages</span>
+      <span data-i18n="footerNote">Built with HTML & CSS · Hosted on GitHub Pages</span>
     </div>
   </footer>
   <script>
-    // Keeps the copyright year current without requiring manual edits.
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    /*
+      LANGUAGE EDITING GUIDE
+      - English is the default.
+      - To add Portuguese, replace an empty value in translations["pt-BR"] below.
+      - Keep keys unchanged; they match data-i18n attributes in the HTML.
+      - Empty values fall back to English, so you can translate gradually.
+      - Preserve HTML tags such as <br>, <span>, and <strong> in translated values.
+    */
+    const translations = {
+      en: {},
+      "pt-BR": {
+        // Navigation
+        navProjects: "", navAbout: "", navContact: "",
+        // Intro
+        heroEyebrow: "", heroTitle: "", heroCopy: "", heroProjects: "", heroContact: "",
+        // Projects
+        projectsTitle: "", projectsIntro: "", mareStatus: "", mareDescription: "",
+        contributionsHeading: "", mareContribution1: "", mareContribution2: "",
+        mareContribution3: "", mareNote: "", eyesStatus: "", eyesDescription: "",
+        eyesContribution1: "", eyesContribution2: "", eyesContribution3: "", eyesNote: "",
+        damnationStatus: "", damnationDescription: "", damnationContribution1: "",
+        damnationContribution2: "", damnationContribution3: "", damnationNote: "",
+        // About and contact
+        aboutTitle: "", aboutCopy: "", contactTitle: "", contactEyebrow: "",
+        contactHeadline: "", contactCopy: "", footerNote: ""
+      }
+    };
+
+    const languageButton = document.getElementById("languageToggle");
+    const englishLabel = document.getElementById("langEN");
+    const portugueseLabel = document.getElementById("langPT");
+    const translatableElements = document.querySelectorAll("[data-i18n]");
+    const originalEnglish = {};
+
+    translatableElements.forEach(function (element) {
+      originalEnglish[element.dataset.i18n] = element.innerHTML;
+    });
+
+    function setLanguage(language) {
+      const dictionary = translations[language] || {};
+      translatableElements.forEach(function (element) {
+        const key = element.dataset.i18n;
+        const translation = dictionary[key];
+        element.innerHTML = (language === "pt-BR" && translation && translation.trim())
+          ? translation
+          : originalEnglish[key];
+      });
+      document.documentElement.lang = language === "pt-BR" ? "pt-BR" : "en";
+      englishLabel.setAttribute("aria-pressed", language === "en" ? "true" : "false");
+      portugueseLabel.setAttribute("aria-pressed", language === "pt-BR" ? "true" : "false");
+      languageButton.setAttribute("aria-label", language === "en" ? "Switch to Portuguese" : "Switch to English");
+      languageButton.title = language === "en" ? "Switch to Portuguese" : "Switch to English";
+      languageButton.dataset.language = language;
+    }
+
+    languageButton.addEventListener("click", function () {
+      const currentLanguage = languageButton.dataset.language || "en";
+      setLanguage(currentLanguage === "en" ? "pt-BR" : "en");
+    });
 
     // Show the screenshot placeholder when an image file has not been uploaded yet.
     document.querySelectorAll(".project-visual").forEach(function (visual) {
@@ -371,6 +441,8 @@
       img.addEventListener("error", syncFallback);
       syncFallback();
     });
+
+    setLanguage("en");
   </script>
 </body>
 </html>
