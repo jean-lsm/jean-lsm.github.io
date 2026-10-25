@@ -1,0 +1,779 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0f14">
+<meta name="description" content="The Mare Show — a first-person horror and arcade game developed by OutZoom, released on Steam on October 21, 2025.">
+<title>The Mare Show | [JEAN LUIS]</title>
+
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0b0f14;
+  --panel:#101720;
+  --panel2:#0d131b;
+  --line:#263544;
+  --text:#e5edf5;
+  --muted:#9baabd;
+  --green:#76f7b2;
+  --cyan:#7bdff2;
+  --amber:#ffd166;
+  --red:#f11214;
+  --radius:14px;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+  --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  line-height:1.65;
+  position:relative;
+  isolation:isolate;
+}
+
+/* Fixed background image */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url("assets/project-tms/tms_background.png") center center / cover no-repeat;
+  z-index:-2;
+  pointer-events:none;
+}
+
+/* Transparent decorative icon over the background */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url("assets/project-tms/tms_backgroundIcon.png") center center / contain no-repeat;
+  z-index:-1;
+  pointer-events:none;
+}
+a{color:var(--cyan);text-decoration:none}
+a:hover{color:var(--green)}
+a:focus-visible,button:focus-visible{
+  outline:2px solid var(--green);
+  outline-offset:4px
+}
+code,.mono,.eyebrow,.prompt,.section-index,.panel-title,.meta{
+  font-family:var(--mono)
+}
+code{color:var(--green)}
+.wrap{width:min(1080px,calc(100% - 40px));margin:0 auto}
+.topbar{
+  border-bottom:1px solid var(--line);
+  background:rgba(11,15,20,.25);
+  position:sticky;
+  top:0;
+  z-index:5;
+  backdrop-filter:blur(14px)
+}
+.nav{
+  min-height:66px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:wrap
+}
+.brand{
+  color:var(--text);
+  font:700 .95rem var(--mono);
+  letter-spacing:-.03em
+}
+.prompt{color:var(--green)}
+.nav-right{display:flex;align-items:center;gap:22px}
+.nav-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:22px;
+  font:.82rem var(--mono)
+}
+.nav-links a{color:var(--muted)}
+.nav-links a:hover{color:var(--green)}
+.language-toggle{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  padding:6px 9px;
+  background:var(--panel);
+  color:var(--muted);
+  cursor:pointer;
+  font:.78rem var(--mono)
+}
+.language-toggle [aria-pressed=true]{
+  color:var(--red);
+  font-weight:700
+}
+.language-toggle .separator{color:var(--line)}
+.hero{padding:76px 0 42px}
+.eyebrow{
+  color:var(--white);
+  font-size:.82rem;
+  letter-spacing:.08em;
+  text-transform:uppercase
+}
+h1{
+  color: var(--red);
+  max-width:850px;
+  margin:18px 0;
+  font-size:clamp(2.5rem,7vw,5.2rem);
+  line-height:1.04;
+  letter-spacing:-.065em;
+  overflow-wrap:anywhere
+}
+h1 .accent{color:var(--text)}
+.hero-copy{
+  max-width:760px;
+  color:var(--muted);
+  font-size:1.08rem
+}
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:26px
+}
+.button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:11px 15px;
+  font:600 .86rem var(--mono);
+  color:var(--text);
+  background:var(--panel);
+  cursor:pointer;
+  transition:transform .15s ease,border-color .15s ease
+}
+.button.primary {
+  background:var(--red);
+  border-color:var(--red);
+  color:#fff;
+}
+.button:hover{
+  transform:translateY(-1px);
+  border-color:var(--red)
+}
+.button.primary:hover{color:#fff}
+.content-section{padding:30px 0 45px}
+.section-heading{
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+  margin-bottom:18px
+}
+.section-index{color:var(--red);font-size:.85rem}
+h2{
+  font-size:clamp(1.45rem,3vw,2rem);
+  line-height:1.2;
+  letter-spacing:-.035em;
+  margin:0
+}
+.panel{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:rgba(13,19,27,.88);
+  overflow:hidden;
+  box-shadow:0 16px 45px rgba(0,0,0,.12)
+}
+.panel-bar{
+  min-height:43px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:0 14px;
+  background:rgba(16,23,32,.8);
+  border-bottom:1px solid var(--line)
+}
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--red)
+}
+.dot:nth-child(2){background:var(--amber)}
+.dot:nth-child(3){background:var(--green)}
+.panel-title{
+  margin-left:7px;
+  color:var(--muted);
+  font:.75rem var(--mono);
+  overflow-wrap:anywhere
+}
+.gallery{padding:16px}
+.slide-stage{
+  position:relative;
+  aspect-ratio:16/9;
+  min-height:220px;
+  max-height:620px;
+  background:#080c11;
+  border:1px solid var(--line);
+  border-radius:9px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center
+}
+.slide-stage img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block
+}
+.fallback{
+  padding:24px;
+  text-align:center;
+  color:var(--muted);
+  font:.85rem var(--mono)
+}
+.fallback strong{
+  display:block;
+  color:var(--red);
+  margin-bottom:9px
+}
+.slide-control{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:42px;
+  height:42px;
+  border:1px solid rgba(229,237,245,.3);
+  border-radius:50%;
+  color:var(--text);
+  background:rgba(11,15,20,.8);
+  font-size:1.3rem;
+  cursor:pointer
+}
+.slide-control:hover{border-color:var(--red);color:var(--red)}
+.prev{left:12px}
+.next{right:12px}
+.slide-footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding-top:13px;
+  color:var(--muted);
+  font:.78rem var(--mono)
+}
+.slide-dots{display:flex;gap:7px;flex-wrap:wrap}
+.slide-dot{
+  width:8px;
+  height:8px;
+  padding:0;
+  border:1px solid var(--muted);
+  border-radius:50%;
+  background:transparent;
+  cursor:pointer
+}
+.slide-dot[aria-current=true]{
+  background:var(--red);
+  border-color:var(--red)
+}
+.video-frame{
+  aspect-ratio:16/9;
+  background:#080c11
+}
+.video-frame iframe{
+  width:100%;
+  height:100%;
+  display:block;
+  border:0
+}
+footer{
+  border-top:1px solid var(--line);
+  margin-top:24px;
+  padding:25px 0 35px;
+  color:var(--muted);
+  font:.78rem var(--mono)
+}
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap
+}
+@media(max-width:760px){
+  .nav-right{
+    width:100%;
+    justify-content:space-between;
+    gap:12px;
+    padding-bottom:12px
+  }
+}
+@media(max-width:650px){
+  .wrap{width:min(100% - 28px,1080px)}
+  .hero{padding:55px 0 30px}
+  .content-section{padding:24px 0 32px}
+  .gallery{padding:10px}
+  .slide-stage{min-height:190px}
+  .slide-control{width:36px;height:36px}
+  .slide-footer{align-items:flex-start;flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important}
+}
+
+/* Transparent backgrounds for improved text readability */
+.hero h1,
+.hero-copy,
+.section-heading h2 {
+  background: rgba(11, 15, 20, 0.75);
+  border-radius: 8px;
+  padding: 8px 12px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Keep the main title and subtitle visually connected */
+.hero h1 {
+  width: fit-content;
+  max-width: 100%;
+}
+
+/* Description box */
+.hero-copy {
+  padding: 12px 16px;
+}
+
+/* Section headings */
+.section-heading h2 {
+  padding: 6px 12px;
+}
+
+/* Project presentation section */
+.project-info {
+  padding: 22px;
+  background: rgba(11, 15, 20, 0.25);
+}
+
+.project-info h3 {
+  color: var(--red);
+  font-family: var(--mono);
+  font-size: 1.05rem;
+  margin: 0 0 12px;
+}
+
+.project-info p {
+  color: var(--text);
+  margin: 0 0 16px;
+}
+
+.project-info ul {
+  color: var(--muted);
+  padding-left: 22px;
+  margin: 0 0 20px;
+}
+
+.project-info li {
+  margin-bottom: 10px;
+}
+
+.project-info li strong {
+  color: var(--text);
+}
+
+.project-info .info-divider {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 24px 0;
+}
+
+.project-info .closing-note {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+@media(max-width:650px) {
+  .project-info {
+    padding: 16px;
+  }
+}
+</style>
+</head>
+<audio id="hoverSound" preload="auto">
+  <source src="assets/project-tms/UI_horse_hooves1.wav" type="audio/mpeg">
+</audio>
+<body>
+<header class="topbar">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <span class="eyebrow">~/</span> [JEAN LUIS]
+    </a>
+
+    <div class="nav-right">
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html#projects" data-i18n="txt_BackToProjects">projects</a>
+        <a href="index.html#about" data-i18n="txt_About">about</a>
+        <a href="index.html#contact" data-i18n="txt_Contact">contact</a>
+      </nav>
+
+      <button class="language-toggle" id="languageToggle"
+        type="button" aria-label="Switch language" title="Switch language">
+        <span id="langEN" aria-pressed="true">EN</span>
+        <span class="separator">/</span>
+        <span id="langPT" aria-pressed="false">PT-BR</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">// PROJECT PAGE</div>
+
+      <h1>
+        The Mare Show<br>
+        <span class="accent">The first professional game launched</span>
+      </h1>
+
+      <p class="hero-copy">
+        The game follows Tom Lorich, a compulsive gambler trapped in a
+        bizarre world shaped by his deepest traumas. The Mare Show is a
+        first-person horror and arcade game developed by OutZoom,
+        released on October 21, 2025, for PC via Steam.
+      </p>
+
+      <div class="hero-actions">
+        <a class="button primary"
+          href="https://store.steampowered.com/app/3604520/The_Mare_Show/"
+          target="_blank" rel="noopener noreferrer">
+          Steam <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="content-section">
+    <div class="wrap">
+      <div class="section-heading">
+        <span class="section-index">01 /</span>
+        <h2>Screenshots</h2>
+      </div>
+
+      <div class="panel">
+
+        <div class="gallery">
+          <div class="slide-stage">
+            <img id="slideImage"
+              src="assets/project-tms/tms_01.png"
+              alt="The Mare Show screenshot 1">
+
+            <div class="fallback" id="slideFallback" hidden>
+              <strong>[ SCREENSHOT PLACEHOLDER ]</strong>
+              Add your screenshots to
+              <code>assets/project-tms/</code>
+              and update the gallery list.
+            </div>
+
+            <button class="slide-control prev" id="prevSlide"
+              type="button" aria-label="Previous image">‹</button>
+
+            <button class="slide-control next" id="nextSlide"
+              type="button" aria-label="Next image">›</button>
+          </div>
+
+          <div class="slide-footer">
+            <span id="slideCounter">01 / 03</span>
+            <div class="slide-dots" id="slideDots"
+              aria-label="Choose screenshot"></div>
+            <span>Use arrows to browse</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<section id="project-info" class="content-section">
+  <div class="wrap">
+
+    <div class="section-heading">
+      <span class="section-index">02 /</span>
+      <h2>Project Overview</h2>
+    </div>
+
+    <div class="panel">
+      
+
+      <div class="project-info">
+
+        <h3>My Contribution</h3>
+
+        <p>
+          I worked as a programmer on The Mare Show, contributing to
+          three main areas of the game's development:
+        </p>
+
+        <ul>
+          <li>
+            <strong>HUD Programming:</strong>
+            Implementation of user interfaces, real-time information
+            updates, and integration with the game's systems.
+          </li>
+
+          <li>
+            <strong>Level Management:</strong>
+            Programming for scene loading, transitions, progression,
+            and game state management.
+          </li>
+
+          <li>
+            <strong>Localization Systems:</strong>
+            Development and integration of the text localization
+            structure, text identifiers, language switching, and
+            interface localization. The game supports seven languages
+            for its interface and subtitles.
+          </li>
+        </ul>
+
+        <p class="closing-note">
+          This project provided professional experience contributing
+          to a commercially released game developed by a team.
+        </p>
+
+        <hr class="info-divider">
+
+        <h3>Public Showcases and Distribution</h3>
+
+        <p>
+          The Mare Show has been featured in public gaming showcases
+          and distributed through digital platforms.
+        </p>
+
+        <ul>
+          <li>
+            <strong>RetroCon 2025 — São Paulo, Brazil:</strong>
+            The game was featured at the OutZoom / GoGo Games booth
+            during this in-person gaming event.
+          </li>
+
+          <li>
+            <strong>Latin American Games Showcase (LAGS) 2025:</strong>
+            The game was included in the showcase's selection of
+            Latin American titles presented online.
+          </li>
+
+          <li>
+            <strong>Steam:</strong>
+            Commercial release on October 21, 2025. A playable demo,
+            <em>The Mare Show: The Farm Demo</em>, was previously
+            released on May 9, 2025.
+          </li>
+        </ul>
+
+        <a
+          class="button primary"
+          href="https://store.steampowered.com/app/3604520/The_Mare_Show/"
+          target="_blank"
+          rel="noopener noreferrer">
+          View on Steam <span aria-hidden="true">↗</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <section id="video" class="content-section">
+    <div class="wrap">
+      <div class="section-heading">
+        <span class="section-index">03 /</span>
+        <h2>Gameplay video</h2>
+      </div>
+
+      <div class="panel">
+        
+
+        <div class="video-frame">
+          <iframe
+		  src="https://www.youtube.com/embed/44GlZN585ms"
+		  title="The Mare Show — YouTube video"
+		  referrerpolicy="strict-origin-when-cross-origin"
+		  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+		  allowfullscreen>
+		</iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>
+      <span class="eyebrow">~/</span> [JEAN LUIS]
+      <span data-i18n="txt_FooterNote">· Project showcase</span>
+    </span>
+    <a href="index.html" data-i18n="txt_BackToPortfolio">
+      Back to portfolio ↑
+    </a>
+  </div>
+</footer>
+
+<script>
+const fallbackText = {};
+
+document.querySelectorAll("[data-i18n]").forEach(el => {
+  fallbackText[el.dataset.i18n] = el.innerHTML;
+});
+
+let translations = {};
+let currentLanguage = "en";
+
+async function loadTranslations() {
+  try {
+    const response = await fetch("./translations.json");
+
+    if (!response.ok) {
+      throw Error("Could not load translations.json");
+    }
+
+    translations = await response.json();
+  } catch (error) {
+    console.warn(
+      "Using built-in English text; check translations.json path.",
+      error
+    );
+  }
+
+  applyLanguage(currentLanguage);
+}
+
+function applyLanguage(lang) {
+  currentLanguage = lang;
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.dataset.i18n;
+
+    el.innerHTML =
+      translations?.[lang]?.[key] ||
+      translations?.en?.[key] ||
+      fallbackText[key] ||
+      el.innerHTML;
+  });
+
+  document.getElementById("langEN")
+    .setAttribute("aria-pressed", String(lang === "en"));
+
+  document.getElementById("langPT")
+    .setAttribute("aria-pressed", String(lang === "pt-BR"));
+
+  document.getElementById("languageToggle")
+    .setAttribute(
+      "aria-label",
+      lang === "en" ? "Switch to Portuguese" : "Mudar para inglês"
+    );
+}
+
+const steamButton = document.querySelector(
+  '.hero-actions .button.primary'
+);
+
+const hoverSound = document.getElementById('hoverSound');
+
+steamButton.addEventListener('mouseenter', () => {
+  hoverSound.currentTime = 0;
+  hoverSound.play().catch(() => {});
+});
+
+document.getElementById("languageToggle").addEventListener("click", () => {
+  applyLanguage(currentLanguage === "en" ? "pt-BR" : "en");
+});
+
+const slides = [
+  {
+    src: "assets/project-tms/tms_01.png",
+    alt: "The Mare Show - Fazenda Lorich"
+  },
+  {
+    src: "assets/project-tms/tms_02.png",
+    alt: "The Mare Show - The Alleys"
+  },
+  {
+    src: "assets/project-tms/tms_03.png",
+    alt: "The Mare Show - The Hotel"
+  }
+  {
+    src: "assets/project-tms/tms_01.png",
+    alt: "The Mare Show - The Tower"
+  }
+  {
+    src: "assets/project-tms/tms_01.png",
+    alt: "The Mare Show - The Hall"
+  }
+  {
+    src: "assets/project-tms/tms_01.png",
+    alt: "The Mare Show screenshot 3"
+  }
+];
+
+let activeSlide = 0;
+
+const slideImage = document.getElementById("slideImage");
+const slideFallback = document.getElementById("slideFallback");
+const slideCounter = document.getElementById("slideCounter");
+const slideDots = document.getElementById("slideDots");
+
+function renderSlide(index) {
+  activeSlide = (index + slides.length) % slides.length;
+
+  const slide = slides[activeSlide];
+
+  slideImage.hidden = false;
+  slideFallback.hidden = true;
+  slideImage.src = slide.src;
+  slideImage.alt = slide.alt;
+
+  slideCounter.textContent =
+    `${String(activeSlide + 1).padStart(2, "0")} / ` +
+    `${String(slides.length).padStart(2, "0")}`;
+
+  [...slideDots.children].forEach((dot, i) => {
+    dot.setAttribute("aria-current", String(i === activeSlide));
+  });
+}
+
+slides.forEach((slide, index) => {
+  const dot = document.createElement("button");
+
+  dot.type = "button";
+  dot.className = "slide-dot";
+  dot.setAttribute("aria-label", `Show screenshot ${index + 1}`);
+
+  dot.addEventListener("click", () => renderSlide(index));
+
+  slideDots.appendChild(dot);
+});
+
+slideImage.addEventListener("error", () => {
+  slideImage.hidden = true;
+  slideFallback.hidden = false;
+});
+
+document.getElementById("prevSlide")
+  .addEventListener("click", () => renderSlide(activeSlide - 1));
+
+document.getElementById("nextSlide")
+  .addEventListener("click", () => renderSlide(activeSlide + 1));
+
+loadTranslations();
+renderSlide(0);
+</script>
+</body>
+</html>
