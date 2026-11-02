@@ -207,7 +207,21 @@
     "txt_EXP_Tech6": "Debugging and maintenance",
     "txt_EXP_Tech7": "Simulation development",
     "txt_EXP_ClosingNote": "This page provides a general overview of my work while respecting the confidentiality requirements of the projects involved.",
-    "txt_EXP_FooterNote": "· Unity development experience"
+    "txt_EXP_FooterNote": "· Unity development experience",
+    "txt_viewProject": "View project <span aria-hidden=\"true\">→</span>",
+    "txt_viewExperience": "View experience <span aria-hidden=\"true\">→</span>",
+    "txt_viewOtherProjects": "View projects <span aria-hidden=\"true\">→</span>",
+    "txt_devStatus": "Professional experience",
+    "txt_devTitle": "Unity Developer Experience",
+    "txt_devDescription": "Professional experience building Unity simulations, including educational virtual labs and machinery simulators, with a focus on interactive systems, user interfaces, and 3D content integration.",
+    "txt_devHeading": "FOCUS AREAS",
+    "txt_devFocus1": "Educational simulations and virtual labs at Algetec.",
+    "txt_devFocus2": "Machinery simulators, such as forklifts and crane trucks, at Oniria.",
+    "txt_devFocus3": "Interactive systems, UI, 3D asset integration, and debugging.",
+    "txt_devNote": "Some projects are under confidentiality agreements, so details are kept general.",
+    "txt_otherStatus": "Independent projects",
+    "txt_otherTitle": "Other projects",
+    "txt_otherDescription": "Independent games, prototypes, and experiments made outside of professional work, including Eyes Up!, a rocket-flight game built from start to finish."
   },
   "pt-BR": {
     "txt_Projects": "projetos",
@@ -417,6 +431,20 @@
     "txt_EXP_Tech6": "Depuração e manutenção",
     "txt_EXP_Tech7": "Desenvolvimento de simulações",
     "txt_EXP_ClosingNote": "Esta página apresenta uma visão geral do meu trabalho, respeitando os requisitos de confidencialidade dos projetos envolvidos.",
-    "txt_EXP_FooterNote": "· Experiência em desenvolvimento Unity"
+    "txt_EXP_FooterNote": "· Experiência em desenvolvimento Unity",
+    "txt_viewProject": "Ver projeto <span aria-hidden=\"true\">→</span>",
+    "txt_viewExperience": "Ver experiência <span aria-hidden=\"true\">→</span>",
+    "txt_viewOtherProjects": "Ver projetos <span aria-hidden=\"true\">→</span>",
+    "txt_devStatus": "Experiência profissional",
+    "txt_devTitle": "Experiência como desenvolvedor Unity",
+    "txt_devDescription": "Experiência profissional desenvolvendo simulações em Unity, incluindo laboratórios virtuais educacionais e simuladores de maquinário, com foco em sistemas interativos, interfaces de usuário e integração de conteúdo 3D.",
+    "txt_devHeading": "ÁREAS DE ATUAÇÃO",
+    "txt_devFocus1": "Simulações educacionais e laboratórios virtuais na Algetec.",
+    "txt_devFocus2": "Simuladores de maquinário, como empilhadeiras e caminhões-guindaste, na Oniria.",
+    "txt_devFocus3": "Sistemas interativos, UI, integração de assets 3D e depuração.",
+    "txt_devNote": "Alguns projetos estão sob acordos de confidencialidade, por isso os detalhes são mantidos gerais.",
+    "txt_otherStatus": "Projetos independentes",
+    "txt_otherTitle": "Outros projetos",
+    "txt_otherDescription": "Jogos independentes, protótipos e experimentos feitos fora do trabalho profissional, incluindo Eyes Up!, um jogo de voo de foguete feito do início ao fim."
   }
 }
